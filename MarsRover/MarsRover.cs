@@ -17,15 +17,15 @@ public class MarsRover {
         string[]? states = _initialState.Split(separator: ":");
         _position.X = int.Parse(s: states[0]);
         _position.Y = int.Parse(s: states[1]);
-        string? direction = states[2];
+        string? directionStringCommand = states[2];
 
         if (commands == "M")
         {
-            _direction = CreateDirectionFrom(direction);
+            _direction = CreateDirectionFrom(directionStringCommand);
             _position = _direction.MoveForward(_position);
         }
 
-        return $"{_position.X}:{_position.Y}:{direction}";
+        return $"{_position.X}:{_position.Y}:{directionStringCommand}";
     }
 
     private static IDirection CreateDirectionFrom(string direction)
@@ -39,48 +39,7 @@ public class MarsRover {
             case "E":
                 return new East();
             default:
-                throw new NotSupportedException();
+                throw new NotSupportedException($"Direction {direction} is not supported");
         }
     }
-}
-
-public interface IDirection {
-   Position MoveForward(Position position);
-}
-
-public class North: IDirection {
-    public Position MoveForward(Position position)
-    {
-        position.Y++;
-        return position;
-    }
-}
-
-public class West: IDirection {
-    public Position MoveForward(Position position)
-    {
-        position.X--;
-        return position;
-    }
-}
-
-public class East: IDirection {
-    public Position MoveForward(Position position)
-    {
-        position.X++;
-        return position;
-    }
-}
-
-public class Position {
-    private int _y;
-    public int Y { 
-        get { return _y; } 
-        set { _y = value; }
-        }
-    private int _x;
-    public int X { 
-        get { return _x; } 
-        set { _x = value; }
-        }
 }
