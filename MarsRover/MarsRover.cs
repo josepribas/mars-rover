@@ -1,4 +1,6 @@
-namespace MarsRover.Tests;
+using MarsRover.Directions;
+
+namespace MarsRover;
 
 public class MarsRover {
 
@@ -9,19 +11,19 @@ public class MarsRover {
     public MarsRover(string initialState)
     {
         _initialState = initialState;
-        _position = new Position();
     }
 
     public object Execute(string commands)
     {
         string[]? states = _initialState.Split(separator: ":");
-        _position.X = int.Parse(s: states[0]);
-        _position.Y = int.Parse(s: states[1]);
+        var x = int.Parse(s: states[0]);
+        var y = int.Parse(s: states[1]);
+        _position = new Position(x, y);
         string? directionStringCommand = states[2];
 
         if (commands == "M")
         {
-            _direction = DirectionFactory.CreateDirectionFrom(directionStringCommand);
+            _direction = DirectionFactory.CreateFrom(directionStringCommand);
             _position = _direction.MoveForward(_position);
         }
 

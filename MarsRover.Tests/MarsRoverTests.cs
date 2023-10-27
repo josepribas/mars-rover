@@ -25,6 +25,7 @@ public class MarsRoverTests
     [InlineData("1:1:N","1:2:N")]
     [InlineData("1:1:W","0:1:W")]
     [InlineData("1:1:E","2:1:E")]
+    [InlineData("1:1:S","1:0:S")]
     public void MoveForward(string initialState, string expectedFinalState)
     {
         // Arrange - Given

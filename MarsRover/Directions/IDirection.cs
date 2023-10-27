@@ -1,4 +1,4 @@
-namespace MarsRover.Tests;
+namespace MarsRover;
 
 public interface IDirection {
    Position MoveForward(Position position);
