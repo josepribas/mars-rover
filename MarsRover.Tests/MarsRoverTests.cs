@@ -6,39 +6,36 @@ namespace MarsRover.Tests;
 public class MarsRoverTests
 {
     [Theory]
-    [InlineData("0:0:N")]
-    [InlineData("2:1:W")]
-    public void PrintInitialState(string initialState)
+    [InlineData("0:0:N", "", "0:0:N")]
+    [InlineData("2:1:W", "", "2:1:W")]
+    [InlineData("0:0:N", "M", "0:1:N")]
+    [InlineData("1:1:N", "M", "1:2:N")]
+    [InlineData("1:1:W", "M", "0:1:W")]
+    [InlineData("1:1:E", "M", "2:1:E")]
+    [InlineData("1:1:S", "M", "1:0:S")]
+    [InlineData("1:1:S", "R", "1:1:W")]
+    [InlineData("1:1:W", "R", "1:1:N")]
+    [InlineData("1:1:N", "R", "1:1:E")]
+    [InlineData("1:1:E", "R", "1:1:S")]
+    [InlineData("1:1:S", "L", "1:1:E")]
+    [InlineData("1:1:W", "L", "1:1:S")]
+    [InlineData("1:1:N", "L", "1:1:W")]
+    [InlineData("1:1:E", "L", "1:1:N")]
+    [InlineData("1:1:W", "LL", "1:1:E")]
+    public void ExecuteCommands(string initialState, string commands, string expectedFinalState)
     {
         // Arrange - Given
         MarsRover? marsRover = new MarsRover(initialState: initialState);
  
         // Act - When
-        object? result = marsRover.Execute(commands: "");
+        object? result = marsRover.Execute(commands: commands);
 
         // Assert - Then
-        result.Should().Be(initialState);
-    }
+        result.Should().Be(expected: expectedFinalState);    
 
-    [Theory]
-    [InlineData("0:0:N","0:1:N")]
-    [InlineData("1:1:N","1:2:N")]
-    [InlineData("1:1:W","0:1:W")]
-    [InlineData("1:1:E","2:1:E")]
-    [InlineData("1:1:S","1:0:S")]
-    public void MoveForward(string initialState, string expectedFinalState)
-    {
-        // Arrange - Given
-        MarsRover? marsRover = new MarsRover(initialState: initialState);
- 
-        // Act - When
-        object? result = marsRover.Execute(commands: "M");
-
-        // Assert - Then
-        result.Should().Be(expected: expectedFinalState);
     } 
 
-    [Fact]
+    [Fact]   
     public void Test() {
         Assert.True(condition: true);
 
