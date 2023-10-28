@@ -26,18 +26,11 @@ public class MarsRoverTests
     {
         // Arrange - Given
         MarsRover? marsRover = new MarsRover(initialState: initialState);
- 
+
         // Act - When
-        object? result = marsRover.Execute(commands: commands);
+        var result = marsRover.Execute(stringCommands: commands);
 
         // Assert - Then
         result.Should().Be(expected: expectedFinalState);    
-
     } 
-
-    [Fact]   
-    public void Test() {
-        Assert.True(condition: true);
-
-    }
 }
